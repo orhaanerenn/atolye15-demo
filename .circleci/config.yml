@@ -1,24 +1,17 @@
-jobs:
-  build-and-push:
-    executor: gcp-gcr/default
-    steps:
-      - checkout
-      - gcp-gcr/gcr-auth
-      - gcp-gcr/build-image:
-          image: atolye15-demo
-          no_output_timeout: 20m
-          registry-url: gcr.io/seraphic-rune-343012/
-      - gcp-gcr/push-image:
-          digest-path: /tmp/digest.txt
-          image: atolye15-demo
-          registry-url: gcr.io/seraphic-rune-343012/
-      - run:
-          command: |
-            echo "Digest is: $(</tmp/digest.txt)"
+executors:
+  my-executor:
+    docker:
+      - image: 'cimg/node:17.2.0'
 orbs:
   gcp-gcr: circleci/gcp-gcr@0.14.1
 version: 2.1
 workflows:
-  commit:
+  build_and_push_image:
     jobs:
-      - build-and-push
+      - gcp-gcr/build-and-push-image:
+          context: myContext
+          executor: my-executor
+          image: atolye15-demo
+          registry-url: gcr.io/seraphic-rune-343012/
+          setup-remote-docker: true
+          use-docker-layer-caching: true
