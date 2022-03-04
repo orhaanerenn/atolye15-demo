@@ -1,15 +1,12 @@
-FROM cimg/node:17.2.0
+FROM node:14-slim
 
 LABEL author="Eren Orhan"
 
-WORKDIR /app
+WORKDIR /opt/app/
 
-COPY package*.json ./
-
-RUN sudo yarn install
-
-COPY . ./
+COPY . .
 
 EXPOSE 3000
 
-CMD [ "yarn", "start:prod"]
+
+CMD [ "yarn", "start:prod" ]
