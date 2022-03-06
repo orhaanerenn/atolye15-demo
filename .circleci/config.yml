@@ -41,6 +41,6 @@ workflows:
       - build_and_test:
           filters:
             branches:
-              only: develop # only deploy when on develop
+              only: develop ##only deploy when on develop
 
 
