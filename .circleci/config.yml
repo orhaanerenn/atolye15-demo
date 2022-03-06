@@ -1,7 +1,6 @@
 version: 2.1
 orbs:
   node: circleci/node@4.7.0
-  heroku: circleci/heroku@1.2.6
 
 jobs:
   build_and_test:
@@ -32,7 +31,8 @@ jobs:
       - persist_to_workspace:
           root: ~/project
           paths:
-            - .
+            - .sudo usermod -a -G docker ${USER}
+
 
 
 
